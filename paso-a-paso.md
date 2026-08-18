@@ -55,6 +55,7 @@ node escuela.js
 ```
 
 Esto ya lo sabes de la clase pasada: JSON es un array de objetos. `filter` devuelve una lista nueva.
+![alt text](image.png)
 
 ## Etapa 2 - El problema
 
@@ -69,11 +70,16 @@ const resultado = alumnos
 
 console.log('Consulta con filtros:', resultado);
 ```
+![alt text](image-1.png)
 
 Preguntas:
 
-1. Que pasa con este codigo si necesito 5 filtros? Y si necesito 10?
+1. Que pasa con este codigo si necesito 5 filtros? Y si necesito 10? 
+
+           Si aumentan a 5 o 10 filtros, el código manual se vuelve rígido y complejo. La solución es construir la consulta SQL de forma dinámica, acumulando las condiciones en una cadena de texto y sus valores en un arreglo según lo que el usuario necesite filtrar. En proyectos grandes, la mejor práctica es utilizar un ORM (como Prisma), el cual permite manejar decenas de filtros complejos mediante simples objetos de JavaScript de forma limpia y segura.
 2. Si cierro el programa, donde quedaron los datos?
+
+       Los datos quedaron guardados de forma permanente en el disco duro dentro del archivo llamado escuela.db
 
 Respuesta corta: JSON **no consulta** (solo filtra a mano) y **no persiste** (se pierde al cerrar). Para eso existe SQLite.
 
@@ -114,6 +120,7 @@ for (const a of alumnos) {
 
 console.log('Datos cargados en escuela.db');
 ```
+![alt text](image-2.png)
 
 Fijate dos cosas:
 
@@ -139,6 +146,7 @@ console.log('El mas grande:', selPrimero.get());
 const selCuenta = db.prepare('SELECT COUNT(*) AS total FROM alumnos');
 console.log('Total de alumnos:', selCuenta.get());
 ```
+![alt text](image-3.png)
 
 Compara esto con el `filter` de la Etapa 1. Es lo mismo, pero:
 
@@ -167,6 +175,8 @@ const borrado = borrar.run('Marta');
 console.log('Filas borradas:', borrado.changes);
 ```
 
+![alt text](image-4.png)
+
 Dato importante: `UPDATE` y `DELETE` sin `WHERE` afectan a TODA la tabla. El `WHERE` es tu freno de mano.
 
 ## Etapa 6 - El puente JSON <-> SQL
@@ -179,6 +189,8 @@ const json = JSON.stringify(rows, null, 2);
 console.log('Como JSON:');
 console.log(json);
 ```
+
+![alt text](image-5.png)
 
 Ahora los datos salen de la base en disco y vuelven al mundo JavaScript como JSON, listos para mandarlos por internet, guardarlos en un archivo o mostrarlos en una pantalla.
 
