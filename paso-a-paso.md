@@ -225,6 +225,8 @@ Pista: para la primera necesitas un `JOIN` entre las tres tablas. Para la segund
 
 ## Entregable
 
+![alt text](image-6.png)
+
 Cada alumno entrega:
 
 1. `escuela.js` completo y funcionando.

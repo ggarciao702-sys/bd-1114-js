@@ -10,6 +10,25 @@ db.exec(`
   )
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS cursos (
+    id INTEGER PRIMARY KEY,
+    nombre TEXT NOT NULL
+  )
+`);
+
+db.exec(`
+    CREATE TABLE IF NOT EXISTS inscripciones (
+        id INTEGER PRIMARY KEY,
+        alumno_id INTEGER,
+        curso_id INTEGER,
+        FOREIGN KEY (alumno_id) REFERENCES alumnos(id) ON DELETE CASCADE,
+        FOREIGN KEY (curso_id) REFERENCES cursos(id)
+    );
+`);
+
+
+
 const alumnos = [
   { nombre: 'Ana', seccion: '1114', edad: 19 },
   { nombre: 'Luis', seccion: '1114', edad: 21 },
@@ -43,6 +62,7 @@ console.log('Filas actualizadas:', cambio.changes);
 const borrar = db.prepare('DELETE FROM alumnos WHERE nombre = ?');
 const borrado = borrar.run('Marta');
 console.log('Filas borradas:', borrado.changes);
+
 
 const rows = selSeccion.all('1114');
 const json = JSON.stringify(rows, null, 2);
